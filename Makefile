@@ -15,9 +15,9 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCL = -Iincludes/
 INCL_LIB = ./libft/libft.a
-OBJS = put_in_lists.o
+OBJS = put_in_lists.o create_grid.o put_coords.o
 SRCS_DIR = srcs/
-FILL_SRCS = put_in_lists.c
+FILL_SRCS = put_in_lists.c create_grid.c put_coords.c
 SRCS = $(addprefix $(SRCS_DIR), $(FILL_SRCS))
 #LIB = make -C ./libft/
 

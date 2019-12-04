@@ -6,8 +6,7 @@ Main assumptions of this step:
 2) A matrix 4x4 is received\ after the previous step
 
 
-
- 	/* extra shit. Should be put in another function
+/* extra shit. Should be put in another function
 	i = 0;
 	while (I_PIECE[i] == coords[i])
 		i++;
@@ -31,6 +30,9 @@ void normalizer(int min_x, int min_y, int *coords)
 			coords[i] = coords[i] - min_y;
 		i++;
 	}
+	i = 0;
+	while (i <= 7)
+		printf("%d", coords[i++]);
 }
 
 void min_max(int *coords)
@@ -58,7 +60,7 @@ void min_max(int *coords)
 	return (normalizer(min_x, min_y, coords));
 }
 
-void read_coordinates(char **grid)
+void read_coordinates(char grid[4][4])
 {
 	int i;
 	int j;
@@ -87,9 +89,9 @@ void read_coordinates(char **grid)
 	}
 	i = 0;
 	while (i <= 7)
-        printf("%d", coords[i++]);
-    printf("\n");
-	= min_max(coords);
+		printf("%d", coords[i++]);
+	printf("\n");
+	min_max(coords);
 }
 
 int main()
@@ -98,10 +100,8 @@ int main()
 	{
 		{'.', '.', '.', '.'},
 		{'.', '.', '.', '.'},
-		{'.', '.', '.', '.'},
-		{'#', '#', '#', '#'},
+		{'.', '#', '#', '.'},
+		{'#', '#', '.', '.'},
 	};
-	char **test;
-	*test = grid;
-	read_coordinates(&test);
+	read_coordinates(grid);
 }

@@ -11,14 +11,12 @@
 /* ************************************************************************** */
 
 # include "../libft/includes/libft.h"
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
-# define BUFF_SIZE 128
-
-int		get_next_line(const int fd, char **line);
-int		str_process(char *input, char **result);
-void	ft_strzero(char *input, int len);
-void	ft_strchr0(char *s, int c);
-
+void dynamic_array_print(char **A, size_t N, size_t M);
+t_list	*put_in_list(void);
+char ** dynamic_array_alloc(size_t N, size_t M);
+void dynamic_array_free(char **A, size_t N);
+char** dynamic_array_test(size_t N, size_t M);
