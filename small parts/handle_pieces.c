@@ -47,12 +47,14 @@ void min_max(int *coords)
 		if (i % 2 == 0)
 		{
 			//printf("min_x =%d a[i] = %d \n", min_x, coords[i]);
-			if (min_x > coords[i]) min_x = coords[i];
+			if (min_x > coords[i])
+				min_x = coords[i];
 		}
 		else
 		{
 			//printf("min_y =%d a[i] = %d\n", min_y, coords[i]);
-			if (min_y > coords[i]) min_y = coords[i];
+			if (min_y > coords[i])
+				min_y = coords[i];
 		}
 		i++;
 	}
@@ -87,10 +89,6 @@ void read_coordinates(char grid[4][4])
 		}
 		i++;
 	}
-	i = 0;
-	while (i <= 7)
-		printf("%d", coords[i++]);
-	printf("\n");
 	min_max(coords);
 }
 

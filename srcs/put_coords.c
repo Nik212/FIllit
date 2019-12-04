@@ -13,10 +13,9 @@ void put_coords(char *coords, char **grid, int matrix_width, int matrix_height)
 	i = 0;
 	/*while (i <= 7)
 	{
-		coords[i] = coords[i] -'0';
+		coords[i] = coords[i] -'0'; uncomment this part if print_kek removed
 		i++;
 	}*/
-	i = 0;
 	while (i <= matrix_width - 1)
 	{
 		j = 0;
