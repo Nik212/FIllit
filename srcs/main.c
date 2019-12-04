@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
-
+#include <stdio.h>
 int main(int argc, char *argv[])
 {
-	int fd;
-
 	if (argc != 2)
 	{
-		ft_putstr("Bad input");
+		ft_putstr("Bad input!");
+	}
+	else
+	{
+		printf("%s\n", argv[1]);
 	}
 	return (0);
 }

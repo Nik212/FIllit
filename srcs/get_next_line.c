@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "fillit.h"
 #include <stdio.h>
 void	ft_strchr0(char *s, int c)
 {

@@ -15,27 +15,25 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCL = -Iincludes/
 INCL_LIB = ./libft/libft.a
-OBJS = main.o get_next_line.o
+OBJS = put_in_lists.o
 SRCS_DIR = srcs/
-FILL_SRCS = main.c get_next_line.c \
+FILL_SRCS = put_in_lists.c
 SRCS = $(addprefix $(SRCS_DIR), $(FILL_SRCS))
-LIB = make -C ./libft/
+#LIB = make -C ./libft/
 
 all: $(NAME)
 
 $(NAME):
-		$(CC)
-		$(LIB)
+#		$(LIB)
 		@$(CC) $(CFLAGS) -c $(SRCS) $(INCL)
 		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCL_LIB)
 
-
 clean:
 	rm -rf $(OBJS)
-	make -C libft/ clean
+#	make -C libft/ clean
 
 fclean: clean
 	rm -rf $(NAME)
-	make -C ./libft/ fclean
+#	make -C ./libft/ fclean
 
 re: fclean all
