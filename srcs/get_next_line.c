@@ -5,78 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slupe <slupe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/06 21:17:49 by nmanzini          #+#    #+#             */
-/*   Updated: 2019/11/27 18:30:27 by slupe            ###   ########.fr       */
+/*   Created: 2019/10/26 19:10:11 by slupe             #+#    #+#             */
+/*   Updated: 2019/12/04 16:13:34 by slupe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-void	ft_strchr0(char *s, int c)
-{
-	int i;
+#include "fillit.h"
 
-	i = 0;
-	while (s[i] != (char)c && s[i] != 0)
-		s++;
-	if (s[i] == (char)c)
-		s[i] = 0;
-}
-
-void	ft_strzero(char *input, int len)
+void	put_null_char(char *input, int len)
 {
 	while (len--)
 		input[len] = 0;
 }
 
-int		str_process(char *input, char **result)
+void	replacer(char *src)
 {
-	char		*tmp;
-	char		*tmp2;
+	while (*src != '\n' && *src != '\0')
+		src++;
+	if (*src == '\n')
+		*src = '\0';
+}
 
-	if (ft_strrchr(input, '\n'))
+int		check_if_its_line(char *buffer, char **line)
+{
+	char *buffer_copy;
+	char *line_copy;
+
+	if (ft_strchr(buffer, '\n'))
 	{
-		tmp = ft_strdup(input);
-		input = ft_strcpy(input, &ft_strchr(input, '\n')[1]);
-		ft_strchr0(tmp, 10);
-		tmp2 = *result;
-		*result = ft_strjoin(*result, tmp);
-		free(tmp);
-		free(tmp2);
+		buffer_copy = ft_strdup(buffer);
+		buffer = ft_strcpy(buffer, &ft_strchr(buffer, '\n')[1]);
+		replacer(buffer_copy);
+		line_copy = *line;
+		*line = ft_strjoin(*line, buffer_copy);
+		free(buffer_copy);
+		free(line_copy);
 		return (1);
 	}
 	else
 	{
-		tmp = *result;
-		*result = ft_strjoin(*result, input);
-		free(tmp);
-		ft_strzero(input, BUFF_SIZE);
+		line_copy = *line;
+		*line = ft_strjoin(*line, buffer);
+		free(line_copy);
+		put_null_char(buffer, BUFF_SIZE);
 		return (0);
 	}
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*buff[10000];
-	int			ret;
+	int			we_read;
+	static char	*buffer[MAX_FD];
 
-	if (fd < 0 || !line || BUFF_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || line == NULL || BUFF_SIZE <= 0)
 		return (-1);
-	if (!buff[fd])
-		buff[fd] = ft_strnew(BUFF_SIZE);
-	*line = ft_strnew(0);
-	if (*buff[fd])
-		if (str_process(buff[fd], line))
+	if (!(*line = ft_strnew(0)))
+		return (-1);
+	if (!buffer[fd])
+		buffer[fd] = ft_strnew(BUFF_SIZE);
+	if (*buffer[fd])
+		if (check_if_its_line(buffer[fd], line) == 1)
 			return (1);
-	ft_strzero(buff[fd], BUFF_SIZE);
-	while ((ret = read(fd, buff[fd], BUFF_SIZE)))
+	put_null_char(buffer[fd], BUFF_SIZE);
+	while ((we_read = read(fd, buffer[fd], BUFF_SIZE)))
 	{
-		if (ret < 0)
+		if (we_read < 0)
 			return (-1);
-		if (str_process(buff[fd], line))
-		{
+		if (check_if_its_line(buffer[fd], line) == 1)
 			return (1);
-		}
 	}
 	if (**line == 0)
 		return (0);
